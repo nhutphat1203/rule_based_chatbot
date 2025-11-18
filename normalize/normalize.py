@@ -1,6 +1,7 @@
 
 import unicodedata
 import re
+from datetime import datetime
 
 def normalize_input(text: str) -> str:
     """
@@ -24,3 +25,22 @@ def normalize_input(text: str) -> str:
     text = re.sub(r'\s+', ' ', text).strip()
 
     return text
+
+def normalize_date(text: str) -> datetime | None:
+    cleaned = re.findall(r"\d+", text)   # lấy toàn bộ số trong chuỗi
+
+    if len(cleaned) != 3:
+        return None  # không phải dạng ngày hợp lệ
+    
+    day, month, year = cleaned
+
+    # xử lý năm 2 chữ số (ví dụ 25 → 2025)
+    if len(year) == 2:
+        year = "20" + year
+
+    date_str = f"{day}/{month}/{year}"
+
+    try:
+        return datetime.strptime(date_str, "%d/%m/%Y")
+    except:
+        return None

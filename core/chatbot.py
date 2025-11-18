@@ -7,8 +7,8 @@ data = load_data("data/trip.json")
 class ChatBot:
     
     def __init__(self):
-        pass
+        self.registration_data_path = 'registration.json'
     
     def new_conversation(self) -> Node:
-        return Node(data=data)
+        return Node(data=data, registration_data_path=self.registration_data_path)
     

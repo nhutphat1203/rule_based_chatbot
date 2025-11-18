@@ -1,3 +1,3 @@
-from .normalize import normalize_input
+from .normalize import normalize_input, normalize_date
 
-__all__ = ["normalize_input"]
+__all__ = ["normalize_input", "normalize_date"]
