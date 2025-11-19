@@ -1,4 +1,3 @@
-# app.py
 from flask import Flask, request, jsonify, render_template
 from core import ChatBot  # ChatBot của bạn
 
@@ -15,7 +14,6 @@ def index():
 
 @app.route("/start", methods=["GET"])
 def start():
-    """Khởi tạo cuộc trò chuyện mới, trả về câu chào đầu tiên."""
     global chatbot, conversation
     chatbot = ChatBot()
     conversation = chatbot.new_conversation()
@@ -38,7 +36,7 @@ def chat():
     if conversation is None:
         chatbot = ChatBot()
         conversation = chatbot.new_conversation()
-        _ = conversation.next()  # bỏ câu chào (client đã gọi /start trước)
+        _ = conversation.next()  
 
     if not user_message:
         return jsonify({"bot": "Bạn chưa nhập nội dung.", "done": not conversation.is_next()})
@@ -49,7 +47,6 @@ def chat():
         return jsonify({"bot": f"Lỗi xử lý: {e}", "done": True}), 500
 
     if bot_response is None:
-        # Không còn bước nào nữa
         return jsonify({
             "bot": (
                 "Cuộc hội thoại hiện tại đã kết thúc.\n"
@@ -66,5 +63,4 @@ def chat():
 
 
 if __name__ == "__main__":
-    # Chạy Flask dev server
     app.run(host="0.0.0.0", port=5000, debug=True)
