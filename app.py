@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify, render_template
-from core import ChatBot  # ChatBot của bạn
+from core import ChatBot  
 
 app = Flask(__name__)
 
